@@ -1,24 +1,17 @@
 services:
-  api-server-1:
+  back-end:
     build:
       context: ./back-end
       dockerfile: Dockerfile
     image: softy-pinko-back-end:task6
 
-  api-server-2:
-    build:
-      context: ./back-end
-      dockerfile: Dockerfile
-    image: softy-pinko-back-end:task6
-
-  front-end-server:
+  front-end:
     build:
       context: ./front-end
       dockerfile: Dockerfile
     image: softy-pinko-front-end:task6
     depends_on:
-      - api-server-1
-      - api-server-2
+      - back-end
 
   proxy:
     build:
@@ -28,6 +21,5 @@ services:
     ports:
       - "80:80"
     depends_on:
-      - api-server-1
-      - api-server-2
-      - front-end-server
+      - back-end
+      - front-end
